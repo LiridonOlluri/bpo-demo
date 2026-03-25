@@ -75,7 +75,7 @@ const mockEntries: BradfordEntry[] = [
         sickDays: [{ date: '2026-03-09', dayOfWeek: 'Mon', spell: 1 }],
     },
     {
-        agentId: 'Daniel Reyes',
+        agentId: 'Daniel Reyess',
         spells: 0,
         totalDays: 0,
         score: 0,
