@@ -65,7 +65,7 @@ export function FteLossComparative({ teams }: FteLossComparativeProps) {
                             <div className="flex items-center justify-between text-sm">
                                 <span className="text-brand-gray">Daily Cost Impact</span>
                                 <span className="font-medium text-status-red">
-                                    £{team.dailyCostImpact.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    €{team.dailyCostImpact.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </span>
                             </div>
                         </Card>

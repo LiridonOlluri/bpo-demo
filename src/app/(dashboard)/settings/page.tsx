@@ -88,7 +88,6 @@ export default function SettingsPage() {
                                     options={[
                                         { value: 'EUR', label: 'EUR (€)' },
                                         { value: 'USD', label: 'USD ($)' },
-                                        { value: 'GBP', label: 'GBP (£)' },
                                     ]}
                                     defaultValue="EUR"
                                 />

@@ -17,17 +17,12 @@ const trendColors = {
     flat: 'text-brand-gray',
 }
 
-const borderColors = {
-    green: 'border-l-4 border-l-status-green',
-    amber: 'border-l-4 border-l-status-amber',
-    red: 'border-l-4 border-l-status-red',
-    default: '',
-}
+
 
 export function StatCard({ label, value, trend, trendValue, variant = 'default', className }: StatCardProps) {
     const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus
     return (
-        <Card className={cn(borderColors[variant], className)}>
+        <Card className={cn( className)}>
             <p className="text-xs font-medium uppercase tracking-wider text-brand-gray">{label}</p>
             <p className="mt-1 text-2xl font-bold">{value}</p>
             {trend && trendValue && (

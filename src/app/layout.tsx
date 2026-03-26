@@ -4,6 +4,7 @@ import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
 import { Toaster } from "sonner";
 
 const dmSans = DM_Sans({
@@ -28,8 +29,10 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <QueryProvider>
-              {children}
-              <Toaster position="top-right" richColors />
+              <ModalProvider>
+                {children}
+                <Toaster position="top-right" richColors />
+              </ModalProvider>
             </QueryProvider>
           </AuthProvider>
         </ThemeProvider>
