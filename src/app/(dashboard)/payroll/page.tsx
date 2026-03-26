@@ -73,6 +73,7 @@ const mockLines: PayrollLine[] = [
 
 export default function PayrollPage() {
     const [period, setPeriod] = useState('2026-03')
+    const [approvalStatus, setApprovalStatus] = useState<'pending' | 'approved'>('pending')
 
     const totalGross = mockLines.reduce((s, l) => s + l.grossPay, 0)
     const totalOt = mockLines.reduce((s, l) => s + l.overtimeCost, 0)
@@ -81,7 +82,7 @@ export default function PayrollPage() {
 
     return (
         <DashboardTemplate
-            title="Payroll"
+            title={`Payroll — UC-4D${approvalStatus === 'approved' ? ' ✓ Approved' : ''}`}
             actions={
                 <div className="flex items-center gap-3">
                     <Select
@@ -90,7 +91,20 @@ export default function PayrollPage() {
                         onChange={(e) => setPeriod(e.target.value)}
                         className="w-44"
                     />
-                    <Button>Approve Payroll</Button>
+                    {approvalStatus === 'pending' ? (
+                        <Button onClick={() => {
+                            setApprovalStatus('approved')
+                            if (typeof window !== 'undefined') {
+                                import('sonner').then(({ toast }) => toast.success('Payroll approved', { description: 'March 2026 payroll approved. Export to ADP triggered. 100 Work Invoice PDFs queued.' }))
+                            }
+                        }}>
+                            One-Click Approve
+                        </Button>
+                    ) : (
+                        <Button variant="ghost" className="text-status-green">
+                            ✓ Approved — Exported to ADP
+                        </Button>
+                    )}
                 </div>
             }
             statCards={
@@ -102,6 +116,19 @@ export default function PayrollPage() {
                 </>
             }
         >
+            {/* UC-4D description */}
+            {approvalStatus === 'pending' && (
+                <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm">
+                    <span className="font-medium">UC-4D — Finance Director view:</span> All calculations auto-generated from attendance. Base hours, OT, tardiness deductions, night diff, bonuses, missing minutes compensation, leave deductions — per agent. Review the table below, then click <strong>One-Click Approve</strong> to finalise and export to ADP. Per-agent Work Invoice PDFs will be available for download.
+                    <br /><span className="text-brand-gray text-xs mt-1 block">Replaces 2–3 days of manual reconciliation between Interflex, ADP, and Excel.</span>
+                </div>
+            )}
+            {approvalStatus === 'approved' && (
+                <div className="mb-4 rounded-lg border border-status-green/30 bg-status-green/5 p-3 text-sm">
+                    <span className="font-semibold text-status-green">✓ Payroll approved — March 2026.</span> Exported to ADP. 100 Work Invoice PDFs queued for agent self-service download. Missing minutes: compensation balances updated. Night differential applied to 3 agents (22:00–00:00).
+                </div>
+            )}
+
             {/* Payroll config summary */}
             <Card className="mb-4">
                 <div className="flex flex-wrap gap-4 text-xs">

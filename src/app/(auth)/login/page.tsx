@@ -15,37 +15,43 @@ import { Shield, Users, Briefcase, Settings, BarChart3, LogIn, Mail, Lock } from
 const ROLES: {
     level: AccessLevel
     name: string
+    subRoles?: string
     description: string
     icon: typeof Shield
 }[] = [
         {
             level: 1,
             name: 'Agent Associate',
-            description: 'View own attendance, payroll, leave requests, and training modules.',
+            subRoles: 'Also: QA Associate, HR Assistant',
+            description: 'View own schedule (3 weeks), attendance, payroll, leave balance, missing minutes, training progress. Clock in/out, apply for leave, request shift swaps, bid for OT.',
             icon: Users,
         },
         {
             level: 2,
             name: 'Team Lead',
-            description: 'Manage team attendance, performance, quality scores, and leave approvals.',
+            subRoles: 'Also: SME (Subject Matter Expert)',
+            description: 'Team real-time dashboard, coaching Kanban (productivity/quality), individual agent detail, FTE loss widget, missing minutes per agent, Bradford factor, shift change approvals.',
             icon: Shield,
         },
         {
             level: 3,
-            name: 'Account Manager',
-            description: 'Client SLA dashboards, workforce planning, HR, and compliance oversight.',
+            name: 'Ops Manager / Account Manager',
+            subRoles: 'Also: QA Manager, HR Manager',
+            description: 'Multi-team oversight, schedule approval, OT authorisation, client SLA & billing, leave capacity, quality calibration, employee lifecycle, smart leave push.',
             icon: Briefcase,
         },
         {
             level: 4,
-            name: 'Ops Manager',
-            description: 'Full operational control with admin access across all modules.',
+            name: 'Department Head',
+            subRoles: 'Finance Director, HR Director, Ops Director, Marketing Director',
+            description: 'Full department visibility, salary data access, payroll approval, billing, admin controls. Payroll one-click approve, contract annex review, promotion and termination authority.',
             icon: Settings,
         },
         {
             level: 5,
             name: 'Executive',
-            description: 'Executive overview with revenue, billing, and cross-client analytics.',
+            subRoles: 'CEO, COO, CTO, System Admin',
+            description: 'Full platform access. Executive overview with company-wide snapshot, cross-client FTE effectiveness, attrition & retention, wallboard, leave liability, and client filter drill-down.',
             icon: BarChart3,
         },
     ]
@@ -303,6 +309,9 @@ export default function LoginPage() {
                                                                 Level {role.level}
                                                             </span>
                                                         </div>
+                                                        {role.subRoles && (
+                                                            <p className="text-[11px] font-medium text-brand-gray/70">{role.subRoles}</p>
+                                                        )}
                                                         <p className="text-xs leading-relaxed text-brand-gray">{role.description}</p>
                                                     </div>
                                                 </div>

@@ -1,6 +1,24 @@
 import type { AccessLevel, Role } from '@/types/roles'
 
-/** Demo role definitions — keep in sync with sidebar `module` keys and first-route logic. */
+/**
+ * Demo role definitions — mirrors the meTru ERP BPO 5-level hierarchy:
+ *
+ * L1 — Individual Contributors (Agent Associate, QA Associate, HR Assistant)
+ *      Created by HR. Sees own data only.
+ *
+ * L2 — Team Leads + SMEs
+ *      Team real-time dashboard, coaching Kanban, attendance panel, FTE loss widget.
+ *
+ * L3 — Ops Manager | Account Manager | QA Manager | HR Manager
+ *      Multi-team oversight, schedule approval, OT auth, client SLA, billing,
+ *      quality, leave capacity, employee lifecycle, payroll oversight.
+ *
+ * L4 — Department Heads (Finance Director | HR Director | Ops Director | Marketing Director)
+ *      Full department visibility, salary data access, billing, admin controls.
+ *
+ * L5 — Executive / System Admin (CEO | COO | CTO | System Admin)
+ *      Full platform access including executive overview.
+ */
 export const DEMO_ROLES: Record<AccessLevel, Role> = {
     1: {
         id: 'role-1',
@@ -30,23 +48,27 @@ export const DEMO_ROLES: Record<AccessLevel, Role> = {
     },
     3: {
         id: 'role-3',
-        name: 'Operations Manager',
+        name: 'Ops Manager / Account Manager',
         level: 3,
-        modules: ['attendance', 'workforce', 'performance', 'quality', 'leave', 'payroll', 'hr', 'clients', 'compliance'],
+        modules: ['attendance', 'workforce', 'performance', 'quality', 'leave', 'payroll', 'billing', 'hr', 'clients', 'compliance'],
         permissions: {
             attendance: ['view', 'edit', 'approve'],
             workforce: ['view', 'edit', 'approve'],
             performance: ['view', 'edit', 'approve'],
+            quality: ['view', 'edit', 'approve'],
             leave: ['view', 'edit', 'approve'],
             payroll: ['view', 'approve'],
+            billing: ['view'],
             hr: ['view', 'edit'],
+            clients: ['view', 'edit'],
+            compliance: ['view'],
         },
     },
     4: {
         id: 'role-4',
-        name: 'Operations Manager',
+        name: 'Department Head',
         level: 4,
-        modules: ['attendance', 'workforce', 'performance', 'quality', 'leave', 'payroll', 'hr', 'clients', 'compliance'],
+        modules: ['attendance', 'workforce', 'performance', 'quality', 'leave', 'payroll', 'billing', 'hr', 'clients', 'compliance', 'training', 'settings'],
         permissions: {
             '*': ['view', 'edit', 'approve', 'admin'],
         },
