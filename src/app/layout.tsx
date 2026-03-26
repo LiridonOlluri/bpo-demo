@@ -13,11 +13,29 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "meTru ERP - BPO",
-  description: "BPO Operations & Workforce Management Platform",
-};
 
+export const metadata: Metadata = {
+  metadataBase: new URL("https://averion.ch"),
+  title: "meTru ERP - BPO",
+  description: "meTru ERP - BPO Operations & Workforce Management Platform",
+  icons: {
+    icon: "/meTru_logo.svg",
+    apple: "/meTru_logo.svg",
+  },
+  openGraph: {
+    title: "meTru ERP - BPO",
+    description: "meTru ERP - BPO Operations & Workforce Management Platform",
+    url: "https://metru-bpo.netlify.app",
+    siteName: "meTru ERP - BPO",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "meTru ERP - BPO",
+    description: "meTru ERP - BPO Operations & Workforce Management Platform",
+  },
+};
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -10,8 +10,7 @@ import { Card } from '@/components/atoms/Card'
 import { Spinner } from '@/components/atoms/Spinner'
 import type { AccessLevel } from '@/types/roles'
 import { getRoleHomePath } from '@/lib/demoRoles'
-import { Shield, Users, Briefcase, Settings, BarChart3, LogIn, Mail, Lock } from 'lucide-react'
-
+import { Shield, Users, Briefcase, Settings, BarChart3, LogIn, Mail, Lock, Phone } from 'lucide-react'
 const ROLES: {
     level: AccessLevel
     name: string
@@ -63,7 +62,7 @@ function MetruLogo({ className }: { className?: string }) {
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-green text-base font-bold text-white shadow-sm sm:h-11 sm:w-11 sm:text-lg"
                 aria-hidden
             >
-                M
+                <Phone size={20} />
             </div>
             <div className="text-left leading-tight">
                 <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">meTru ERP - </span>
@@ -104,8 +103,8 @@ function WelcomePanel({
                 className="pointer-events-none absolute -right-10 -top-12 text-[12rem] font-bold leading-none text-white/[0.06] sm:-right-14 sm:-top-16 sm:text-[16rem] lg:-right-16 lg:-top-24 lg:text-[22rem]"
                 aria-hidden
             >
-                M
-            </div>
+                <Phone size={20} />
+                </div>
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,transparent_40%,rgba(46,204,113,0.08)_100%)]" />
             <div className="relative z-10 space-y-3 sm:space-y-5 lg:space-y-6">
                 <p className="text-xs font-medium text-white/70 sm:text-sm">meTru ERP - BPO</p>

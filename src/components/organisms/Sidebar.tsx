@@ -23,6 +23,7 @@ import {
     ArrowLeftRight,
     ChevronDown,
     ChevronRight,
+    Phone,
 } from 'lucide-react'
 
 interface SubItem {
@@ -112,7 +113,7 @@ function NavLink({
                     'flex items-center gap-3 rounded-full px-3 py-2 text-[13px] font-medium transition-colors',
                     indent ? 'ml-5 py-1.5 text-[12px]' : 'py-2.5',
                     isActive
-                        ? 'bg-zinc-900 text-white shadow-sm'
+                        ? 'bg-brand-green-dim text-white shadow-sm'
                         : indent
                           ? 'text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700'
                           : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
@@ -155,8 +156,8 @@ export function Sidebar({ onNavigate }: SidebarProps) {
     return (
         <div className="flex h-full w-full flex-col bg-white">
             <div className="flex items-center gap-3 px-4 pb-1 pt-5 sm:px-5">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-bold text-white">
-                    M
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white">
+                    <Phone size={16} />
                 </div>
                 <div className="min-w-0 leading-tight">
                     <p className="truncate text-[15px] font-bold tracking-tight text-zinc-900">
@@ -182,7 +183,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                                             className={cn(
                                                 'flex w-full items-center gap-3 rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors',
                                                 isActive
-                                                    ? 'bg-zinc-900 text-white shadow-sm'
+                                                    ? 'bg-brand-green-dim text-white'
                                                     : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
                                             )}
                                         >
@@ -200,7 +201,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                                             className={cn(
                                                 'flex items-center gap-3 rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors',
                                                 isActive
-                                                    ? 'bg-zinc-900 text-white shadow-sm'
+                                                    ? 'bg-brand-green-dim text-white'
                                                     : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
                                             )}
                                         >

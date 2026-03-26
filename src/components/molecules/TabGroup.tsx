@@ -23,7 +23,7 @@ export function TabGroup({ tabs, activeTab, onChange, className }: TabGroupProps
                     key={tab.id}
                     onClick={() => onChange(tab.id)}
                     className={cn(
-                        'px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px',
+                        'px-4 py-2 text-sm cursor-pointer font-medium transition-colors border-b-2 -mb-px',
                         activeTab === tab.id
                             ? 'border-brand-green text-brand-green'
                             : 'border-transparent text-brand-gray hover:text-foreground'

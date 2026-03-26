@@ -238,9 +238,6 @@ export default function OverviewPage() {
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <div className="flex flex-wrap items-center gap-2">
                     <TabGroup tabs={CLIENT_FILTER_TABS} activeTab={clientFilter} onChange={onClientFilter} />
-                    <Badge variant="green" className="text-xs">
-                        KPIs from database
-                    </Badge>
                     {isFetching && (
                         <span className="text-xs text-brand-gray" aria-live="polite">
                             Updating…
@@ -378,7 +375,7 @@ export default function OverviewPage() {
                             </thead>
                             <tbody>
                                 {CLIENT_FTE_TABLE.map((row) => (
-                                    <tr key={row.client} className="border-b border-surface-border last:border-0 hover:bg-surface-muted/50">
+                                    <tr key={row.client} className="border-b border-surface-border cursor-pointer last:border-0 hover:bg-surface-muted/50">
                                         <td className="p-4 font-medium">{row.client}</td>
                                         <td className="p-4 text-right">{row.teams}</td>
                                         <td className="p-4 text-right">{row.nominal}</td>
@@ -425,7 +422,7 @@ export default function OverviewPage() {
                     </h2>
                     <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
                         {shrinkageBreakdown.map((item) => (
-                            <div key={item.label} className="rounded-lg border border-surface-border p-3 text-center">
+                            <div key={item.label} className="rounded-lg cursor-pointer border border-surface-border p-3 text-center">
                                 <p className="text-xs text-brand-gray">{item.label}</p>
                                 <p className={`text-xl font-bold ${item.pct > 2 ? 'text-status-red' : item.pct > 1 ? 'text-status-amber' : 'text-foreground'}`}>
                                     {item.pct.toFixed(1)}%
@@ -540,7 +537,7 @@ export default function OverviewPage() {
                         <div className="space-y-3">
                             {attrition.byTenure.filter(b => b.pct > 0 || b.band === '180+ days').map((band) => (
                                 <div key={band.band}>
-                                    <div className="mb-1 flex items-center justify-between text-xs">
+                                    <div className="mb-1 flex cursor-pointer items-center justify-between text-xs">
                                         <span className="font-medium">{band.band}</span>
                                         <span className="text-brand-gray">{band.count} departures · {band.pct}%</span>
                                     </div>
