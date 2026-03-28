@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { useRole } from '@/hooks/useRole'
+import { TeamScheduleGrid } from '@/components/organisms/TeamScheduleGrid'
 import { LeaveCapacityCalendar } from '@/components/organisms/LeaveCapacityCalendar'
 import { SmartLeavePush } from '@/components/organisms/SmartLeavePush'
 import { Card } from '@/components/atoms/Card'
@@ -12,7 +14,7 @@ import { Input } from '@/components/atoms/Input'
 import { StatCard } from '@/components/molecules/StatCard'
 import { AlertBanner } from '@/components/molecules/AlertBanner'
 import type { LeaveCapacityWeek, LeaveRequest } from '@/types/leave'
-import { CheckCircle2, AlertTriangle, XCircle, CalendarDays } from 'lucide-react'
+import { CheckCircle2, AlertTriangle, XCircle, CalendarDays, LayoutGrid } from 'lucide-react'
 
 // ─── Shared data ──────────────────────────────────────────────────────────────
 const MOCK_WEEKS: LeaveCapacityWeek[] = [
@@ -385,6 +387,51 @@ function L2Leave() {
     )
 }
 
+// ─── L1 tabbed wrapper (reads ?tab=schedule from URL) ─────────────────────────
+function L1LeaveTabbed() {
+    const searchParams = useSearchParams()
+    const [activeTab, setActiveTab] = useState<'leave' | 'schedule'>(
+        () => (searchParams.get('tab') === 'schedule' ? 'schedule' : 'leave')
+    )
+
+    return (
+        <div className="space-y-4">
+            {/* Tab bar */}
+            <div className="flex gap-1 rounded-xl border border-surface-border bg-surface-muted/40 p-1 w-fit">
+                <button
+                    type="button"
+                    onClick={() => setActiveTab('leave')}
+                    className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-medium transition-colors ${
+                        activeTab === 'leave'
+                            ? 'bg-white text-foreground shadow-sm'
+                            : 'text-brand-gray hover:text-foreground'
+                    }`}
+                >
+                    <CalendarDays size={13} />
+                    Leave &amp; Calendar
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setActiveTab('schedule')}
+                    className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-medium transition-colors ${
+                        activeTab === 'schedule'
+                            ? 'bg-white text-foreground shadow-sm'
+                            : 'text-brand-gray hover:text-foreground'
+                    }`}
+                >
+                    <LayoutGrid size={13} />
+                    Full Schedule
+                </button>
+            </div>
+
+            {activeTab === 'leave'
+                ? <L1Leave />
+                : <TeamScheduleGrid mode="agent" viewerAgentId="#12" />
+            }
+        </div>
+    )
+}
+
 // ─── Page root ────────────────────────────────────────────────────────────────
 export default function LeavePage() {
     const { level } = useRole()
@@ -395,11 +442,14 @@ export default function LeavePage() {
                 <h1 className="text-xl font-bold tracking-tight">Leave &amp; Calendar</h1>
                 <p className="text-sm text-brand-gray">
                     {level === 1
-                        ? 'My leave balance · my requests · capacity calendar'
+                        ? 'My leave balance · my requests · capacity calendar · full team schedule'
                         : 'Team leave requests · capacity calendar · smart leave push · agent balances'}
                 </p>
             </div>
-            {level === 1 ? <L1Leave /> : <L2Leave />}
+            {level === 1
+                ? <Suspense fallback={null}><L1LeaveTabbed /></Suspense>
+                : <L2Leave />
+            }
         </div>
     )
 }

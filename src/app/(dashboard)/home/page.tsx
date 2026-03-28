@@ -221,7 +221,7 @@ function L1Home() {
                             </li>
                         ))}
                     </ul>
-                    <Link href="/attendance/leave" className="block text-center text-xs text-brand-primary hover:underline">
+                    <Link href="/attendance/leave?tab=schedule" className="block text-center text-xs text-brand-primary hover:underline">
                         View Full Schedule →
                     </Link>
 
