@@ -24,11 +24,12 @@ export const DEMO_ROLES: Record<AccessLevel, Role> = {
         id: 'role-1',
         name: 'Agent Associate',
         level: 1,
-        modules: ['attendance', 'payroll', 'leave', 'training'],
+        modules: ['home', 'attendance', 'performance', 'payroll', 'training'],
         permissions: {
-            attendance: ['view'],
+            home: ['view'],
+            attendance: ['view', 'edit'],
+            performance: ['view'],
             payroll: ['view'],
-            leave: ['view', 'edit'],
             training: ['view'],
         },
     },
@@ -36,13 +37,14 @@ export const DEMO_ROLES: Record<AccessLevel, Role> = {
         id: 'role-2',
         name: 'Team Lead',
         level: 2,
-        modules: ['attendance', 'workforce', 'performance', 'quality', 'leave', 'payroll'],
+        modules: ['home', 'coaching', 'attendance', 'my-team-ops', 'performance', 'quality', 'payroll'],
         permissions: {
-            attendance: ['view', 'edit'],
-            workforce: ['view'],
+            home: ['view'],
+            coaching: ['view', 'edit', 'approve'],
+            attendance: ['view', 'edit', 'approve'],
+            'my-team-ops': ['view'],
             performance: ['view', 'edit'],
             quality: ['view', 'edit'],
-            leave: ['view', 'approve'],
             payroll: ['view'],
         },
     },
@@ -86,9 +88,12 @@ export const DEMO_ROLES: Record<AccessLevel, Role> = {
 
 /** Maps a role module id to the default dashboard path (first segment matches Sidebar). */
 const MODULE_HOME: Record<string, string> = {
+    home: '/home',
     overview: '/overview',
     clients: '/clients',
+    coaching: '/coaching',
     workforce: '/workforce',
+    'my-team-ops': '/my-team-ops',
     attendance: '/attendance',
     performance: '/performance',
     quality: '/quality',
@@ -108,5 +113,5 @@ export function getRoleHomePath(level: AccessLevel): string {
         const path = MODULE_HOME[m]
         if (path) return path
     }
-    return '/attendance'
+    return '/home'
 }

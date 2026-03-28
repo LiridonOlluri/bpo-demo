@@ -7,23 +7,29 @@ import { useRole } from '@/hooks/useRole'
 import { useAuth } from '@/hooks/useAuth'
 import { cn } from '@/lib/utils'
 import {
+    Home,
+    CalendarDays,
+    BarChart3,
+    Wallet,
+    GraduationCap,
+    MessageSquare,
+    Calendar,
+    Clock,
+    LayoutGrid,
+    ShieldCheck,
+    ChevronDown,
+    ChevronRight,
+    ArrowLeftRight,
+    LogOut,
+    Phone,
+    // L3+ icons
     LayoutDashboard,
     Building2,
     Users,
-    Clock,
-    BarChart3,
-    ShieldCheck,
-    Wallet,
     Receipt,
     UserCog,
-    GraduationCap,
     Scale,
     Settings,
-    LogOut,
-    ArrowLeftRight,
-    ChevronDown,
-    ChevronRight,
-    Phone,
 } from 'lucide-react'
 
 interface SubItem {
@@ -34,16 +40,62 @@ interface SubItem {
 interface NavItem {
     label: string
     href: string
-    icon: typeof LayoutDashboard
-    module: string
+    icon: React.ElementType
     sub?: SubItem[]
 }
 
-const NAV_ITEMS: NavItem[] = [
-    { label: 'Overview', href: '/overview', icon: LayoutDashboard, module: 'overview' },
-    { label: 'Clients', href: '/clients', icon: Building2, module: 'clients' },
+// ── Level 1 — Agent Associate ────────────────────────────────────────────────
+const L1_NAV: NavItem[] = [
+    { label: 'Home', href: '/home', icon: Home },
     {
-        label: 'Workforce', href: '/workforce', icon: Users, module: 'workforce',
+        label: 'Attendance', href: '/attendance', icon: CalendarDays,
+        sub: [
+            { label: 'Leave & Calendar', href: '/attendance/leave' },
+            { label: 'Missing Minutes', href: '/attendance/missing' },
+        ],
+    },
+    { label: 'Performance', href: '/performance', icon: BarChart3 },
+    { label: 'Payroll', href: '/payroll', icon: Wallet },
+    { label: 'Training', href: '/training', icon: GraduationCap },
+]
+
+// ── Level 2 — Team Lead / SME ────────────────────────────────────────────────
+const L2_NAV: NavItem[] = [
+    { label: 'Home', href: '/home', icon: Home },
+    {
+        label: 'Coaching', href: '/coaching', icon: MessageSquare,
+        sub: [
+            { label: 'Kanban Board', href: '/coaching' },
+            { label: 'Coaching Dashboard', href: '/coaching/dashboard' },
+            { label: 'Coaching History', href: '/coaching/history' },
+        ],
+    },
+    {
+        label: 'Attendance', href: '/attendance', icon: CalendarDays,
+        sub: [
+            { label: 'Leave & Calendar', href: '/attendance/leave' },
+            { label: 'Missing Minutes', href: '/attendance/missing' },
+            { label: 'Bradford Factor', href: '/attendance/bradford' },
+        ],
+    },
+    {
+        label: 'My Team Operations', href: '/my-team-ops', icon: LayoutGrid,
+        sub: [
+            { label: 'Schedule', href: '/my-team-ops/schedule' },
+            { label: 'Intraday', href: '/my-team-ops/intraday' },
+        ],
+    },
+    { label: 'Performance', href: '/performance', icon: BarChart3 },
+    { label: 'Quality', href: '/quality', icon: ShieldCheck },
+    { label: 'Payroll', href: '/payroll', icon: Wallet },
+]
+
+// ── Level 3+ — Ops/AM/QA/HR/Exec ────────────────────────────────────────────
+const L3_NAV: NavItem[] = [
+    { label: 'Overview', href: '/overview', icon: LayoutDashboard },
+    { label: 'Clients', href: '/clients', icon: Building2 },
+    {
+        label: 'Workforce', href: '/workforce', icon: Users,
         sub: [
             { label: 'Erlang Calculator', href: '/workforce' },
             { label: 'Intraday', href: '/workforce/intraday' },
@@ -52,7 +104,7 @@ const NAV_ITEMS: NavItem[] = [
         ],
     },
     {
-        label: 'Attendance', href: '/attendance', icon: Clock, module: 'attendance',
+        label: 'Attendance', href: '/attendance', icon: CalendarDays,
         sub: [
             { label: 'Today', href: '/attendance' },
             { label: 'Leave & Calendar', href: '/attendance/leave' },
@@ -60,18 +112,18 @@ const NAV_ITEMS: NavItem[] = [
         ],
     },
     {
-        label: 'Performance', href: '/performance', icon: BarChart3, module: 'performance',
+        label: 'Performance', href: '/performance', icon: BarChart3,
         sub: [
             { label: 'Live Stats', href: '/performance' },
             { label: 'Coaching Kanban', href: '/performance/tickets' },
             { label: 'FTE Loss Analysis', href: '/performance/fte-loss' },
         ],
     },
-    { label: 'Quality', href: '/quality', icon: ShieldCheck, module: 'quality' },
-    { label: 'Payroll', href: '/payroll', icon: Wallet, module: 'payroll' },
-    { label: 'Billing', href: '/billing', icon: Receipt, module: 'billing' },
+    { label: 'Quality', href: '/quality', icon: ShieldCheck },
+    { label: 'Payroll', href: '/payroll', icon: Wallet },
+    { label: 'Billing', href: '/billing', icon: Receipt },
     {
-        label: 'HR', href: '/hr', icon: UserCog, module: 'hr',
+        label: 'HR', href: '/hr', icon: UserCog,
         sub: [
             { label: 'Employees', href: '/hr' },
             { label: 'Onboarding', href: '/hr/onboarding' },
@@ -80,9 +132,9 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Termination', href: '/hr/termination' },
         ],
     },
-    { label: 'Training', href: '/training', icon: GraduationCap, module: 'training' },
-    { label: 'Compliance', href: '/compliance', icon: Scale, module: 'compliance' },
-    { label: 'Settings', href: '/settings', icon: Settings, module: 'settings' },
+    { label: 'Training', href: '/training', icon: GraduationCap },
+    { label: 'Compliance', href: '/compliance', icon: Scale },
+    { label: 'Settings', href: '/settings', icon: Settings },
 ]
 
 interface SidebarProps {
@@ -99,7 +151,7 @@ function NavLink({
 }: {
     href: string
     label: string
-    Icon?: typeof LayoutDashboard
+    Icon?: React.ElementType
     isActive: boolean
     onClick?: () => void
     indent?: boolean
@@ -131,11 +183,14 @@ export function Sidebar({ onNavigate }: SidebarProps) {
     const pathname = usePathname()
     const router = useRouter()
     const { user, logout } = useAuth()
-    const { canView } = useRole()
+    const { level } = useRole()
 
     const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
-    const visible = NAV_ITEMS.filter((item) => canView(item.module))
+    const navItems: NavItem[] =
+        level === 1 ? L1_NAV
+        : level === 2 ? L2_NAV
+        : L3_NAV
 
     const handleChangeRole = () => {
         localStorage.removeItem('bpo-demo-role')
@@ -167,67 +222,69 @@ export function Sidebar({ onNavigate }: SidebarProps) {
             </div>
 
             <nav className="scrollbar-thin flex min-h-0 flex-1 flex-col overflow-y-auto px-3 pb-2 pt-5">
-                {visible.length > 0 && (
-                    <ul className="space-y-0.5">
-                        {visible.map((item) => {
-                            const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
-                            const hasSub = !!item.sub?.length
-                            const isOpen = expanded[item.href] ?? isActive
+                <ul className="space-y-0.5">
+                    {navItems.map((item) => {
+                        const isActive =
+                            pathname === item.href ||
+                            (item.href !== '/' && item.href !== '/home' && pathname.startsWith(item.href))
+                            || (item.href === '/home' && pathname === '/home')
+                            || (item.href === '/coaching' && pathname === '/coaching')
+                        const hasSub = !!item.sub?.length
+                        const isOpen = expanded[item.href] ?? isActive
 
-                            return (
-                                <li key={item.href}>
-                                    {hasSub ? (
-                                        <button
-                                            type="button"
-                                            onClick={() => toggleExpand(item.href)}
-                                            className={cn(
-                                                'flex w-full items-center gap-3 rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors',
-                                                isActive
-                                                    ? 'bg-brand-green-dim text-white'
-                                                    : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
-                                            )}
-                                        >
-                                            <item.icon className="shrink-0" size={18} strokeWidth={1.5} />
-                                            <span className="min-w-0 flex-1 truncate text-left">{item.label}</span>
-                                            {isOpen
-                                                ? <ChevronDown size={14} className="shrink-0 opacity-60" />
-                                                : <ChevronRight size={14} className="shrink-0 opacity-60" />
-                                            }
-                                        </button>
-                                    ) : (
-                                        <Link
-                                            href={item.href}
-                                            onClick={close}
-                                            className={cn(
-                                                'flex items-center gap-3 rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors',
-                                                isActive
-                                                    ? 'bg-brand-green-dim text-white'
-                                                    : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
-                                            )}
-                                        >
-                                            <item.icon className="shrink-0" size={18} strokeWidth={1.5} />
-                                            <span className="min-w-0 truncate">{item.label}</span>
-                                        </Link>
-                                    )}
-                                    {hasSub && isOpen && (
-                                        <ul className="mt-0.5 space-y-0.5">
-                                            {item.sub!.map((sub) => (
-                                                <NavLink
-                                                    key={sub.href}
-                                                    href={sub.href}
-                                                    label={sub.label}
-                                                    isActive={pathname === sub.href}
-                                                    onClick={close}
-                                                    indent
-                                                />
-                                            ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            )
-                        })}
-                    </ul>
-                )}
+                        return (
+                            <li key={item.href}>
+                                {hasSub ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleExpand(item.href)}
+                                        className={cn(
+                                            'flex w-full items-center gap-3 rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors',
+                                            isActive
+                                                ? 'bg-brand-green-dim text-white'
+                                                : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
+                                        )}
+                                    >
+                                        <item.icon className="shrink-0" size={18} strokeWidth={1.5} />
+                                        <span className="min-w-0 flex-1 truncate text-left">{item.label}</span>
+                                        {isOpen
+                                            ? <ChevronDown size={14} className="shrink-0 opacity-60" />
+                                            : <ChevronRight size={14} className="shrink-0 opacity-60" />
+                                        }
+                                    </button>
+                                ) : (
+                                    <Link
+                                        href={item.href}
+                                        onClick={close}
+                                        className={cn(
+                                            'flex items-center gap-3 rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors',
+                                            isActive
+                                                ? 'bg-brand-green-dim text-white'
+                                                : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
+                                        )}
+                                    >
+                                        <item.icon className="shrink-0" size={18} strokeWidth={1.5} />
+                                        <span className="min-w-0 truncate">{item.label}</span>
+                                    </Link>
+                                )}
+                                {hasSub && isOpen && (
+                                    <ul className="mt-0.5 space-y-0.5">
+                                        {item.sub!.map((sub) => (
+                                            <NavLink
+                                                key={sub.href}
+                                                href={sub.href}
+                                                label={sub.label}
+                                                isActive={pathname === sub.href}
+                                                onClick={close}
+                                                indent
+                                            />
+                                        ))}
+                                    </ul>
+                                )}
+                            </li>
+                        )
+                    })}
+                </ul>
             </nav>
 
             <div className="mt-auto border-t border-zinc-100 px-4 py-4">
