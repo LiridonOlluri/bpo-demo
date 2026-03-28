@@ -415,8 +415,9 @@ function L2Home() {
                     {swapStatus === 'pending' ? (
                         <div className="space-y-3">
                             <div className="rounded-lg border border-surface-border p-3 text-sm">
-                                <div className="flex items-center justify-between gap-2 mb-2">
-                                    <p><span className="font-medium">Agent #12</span> ↔ <span className="font-medium">Agent #33</span> · Thursday</p>
+                                <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                                    <span className="inline-flex items-center rounded border border-blue-200 bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700">Single Day Swap</span>
+                                    <p><span className="font-medium">Agent #12</span> ↔ <span className="font-medium">Agent #33</span> · Thu 3/4</p>
                                 </div>
                                 <div className="grid grid-cols-2 gap-2 text-xs mb-2">
                                     <div className="rounded bg-surface-muted p-2">
@@ -430,7 +431,7 @@ function L2Home() {
                                 </div>
                                 <div className="flex flex-wrap gap-1.5 text-[11px] mb-3">
                                     <Badge variant="green">Compliance: passed</Badge>
-                                    <Badge variant="green">Skills: maintained</Badge>
+                                    <Badge variant="green">Skills: Voice ↔ Voice</Badge>
                                     <Badge variant="green">Agent #33: accepted</Badge>
                                 </div>
                                 <div className="flex gap-2">
