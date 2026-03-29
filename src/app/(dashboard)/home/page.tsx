@@ -454,33 +454,64 @@ function L2Home() {
                     )}
                 </Card>
 
-                {/* Bradford Factor flags */}
+                {/* Bradford Factor flags — split: Sick Leave + Adherence */}
                 <Card>
                     <div className="mb-3 flex items-center gap-2">
                         <ShieldAlert size={16} className="text-brand-gray" />
-                        <h2 className="text-sm font-semibold">Bradford Factor Flags — Top 3</h2>
+                        <h2 className="text-sm font-semibold">Bradford Factor Flags</h2>
+                        <span className="ml-auto text-[10px] text-brand-gray italic">Two independent scoring systems</span>
                     </div>
-                    <div className="space-y-2">
-                        {[
-                            { name: 'Ryan Costa', score: 186, status: 'Red', spells: 3, days: 8, pattern: 'Mon/Fri pattern' },
-                            { name: 'Priya Sharma', score: 72, status: 'Amber', spells: 2, days: 3, pattern: '' },
-                            { name: 'Quinn Davis', score: 24, status: 'Green', spells: 1, days: 2, pattern: '' },
-                        ].map((a) => (
-                            <div key={a.name} className="flex items-center justify-between rounded-lg border border-surface-border px-3 py-2 text-sm">
-                                <div>
-                                    <p className="font-medium text-xs">{a.name}</p>
-                                    <p className="text-[11px] text-brand-gray">{a.spells} spells × {a.days} days {a.pattern && `· ${a.pattern}`}</p>
+
+                    {/* Sick Leave Bradford */}
+                    <div className="mb-3">
+                        <div className="mb-1.5 flex items-center gap-1.5">
+                            <span className="rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-[10px] font-semibold text-status-red">Sick Leave Bradford</span>
+                        </div>
+                        <div className="space-y-1.5">
+                            {[
+                                { name: 'Ryan Costa',   score: 186, status: 'Red',   spells: 3, days: 8, pattern: 'Mon/Fri pattern' },
+                                { name: 'Priya Sharma', score: 72,  status: 'Amber', spells: 2, days: 3, pattern: 'Monday frequency' },
+                            ].map((a) => (
+                                <div key={a.name} className="flex items-center justify-between rounded-lg border border-surface-border px-3 py-2">
+                                    <div>
+                                        <p className="font-medium text-xs">{a.name}</p>
+                                        <p className="text-[11px] text-brand-gray">{a.spells} spells × {a.days} days{a.pattern ? ` · ${a.pattern}` : ''}</p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-base font-bold">{a.score}</span>
+                                        <Badge variant={a.status === 'Red' ? 'red' : 'amber'}>{a.status}</Badge>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-lg font-bold">{a.score}</span>
-                                    <Badge variant={a.status === 'Red' ? 'red' : a.status === 'Amber' ? 'amber' : 'green'}>
-                                        {a.status}
-                                    </Badge>
+                            ))}
+                        </div>
+                        <Link href="/attendance/bradford/sick" className="mt-1 block text-right text-[10px] text-brand-primary hover:underline">
+                            View Sick Leave Bradford →
+                        </Link>
+                    </div>
+
+                    {/* Adherence Bradford */}
+                    <div className="border-t border-surface-border pt-3">
+                        <div className="mb-1.5 flex items-center gap-1.5">
+                            <span className="rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700">Adherence Bradford</span>
+                        </div>
+                        <div className="space-y-1.5">
+                            {[
+                                { name: 'Agent #22', score: 162, status: 'Red',   spells: 9, days: 2, pattern: 'Early shift lateness · Break overruns' },
+                            ].map((a) => (
+                                <div key={a.name} className="flex items-center justify-between rounded-lg border border-surface-border px-3 py-2">
+                                    <div>
+                                        <p className="font-medium text-xs">{a.name}</p>
+                                        <p className="text-[11px] text-brand-gray">{a.spells} violation spells × {a.days} days{a.pattern ? ` · ${a.pattern}` : ''}</p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-base font-bold">{a.score}</span>
+                                        <Badge variant="red">{a.status}</Badge>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                        <Link href="/attendance/bradford" className="block text-center text-xs text-brand-primary hover:underline pt-1">
-                            View full Bradford Factor →
+                            ))}
+                        </div>
+                        <Link href="/attendance/bradford/adherence" className="mt-1 block text-right text-[10px] text-brand-primary hover:underline">
+                            View Adherence Bradford →
                         </Link>
                     </div>
                 </Card>

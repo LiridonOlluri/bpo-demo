@@ -73,9 +73,10 @@ const L2_NAV: NavItem[] = [
     {
         label: 'Attendance', href: '/attendance', icon: CalendarDays,
         sub: [
-            { label: 'Leave & Calendar', href: '/attendance/leave' },
-            { label: 'Missing Minutes', href: '/attendance/missing' },
-            { label: 'Bradford Factor', href: '/attendance/bradford' },
+            { label: 'Leave & Calendar',      href: '/attendance/leave' },
+            { label: 'Missing Minutes',        href: '/attendance/missing' },
+            { label: 'Bradford — Sick Leave',  href: '/attendance/bradford/sick' },
+            { label: 'Bradford — Adherence',   href: '/attendance/bradford/adherence' },
         ],
     },
     {
@@ -108,7 +109,8 @@ const L3_NAV: NavItem[] = [
         sub: [
             { label: 'Today', href: '/attendance' },
             { label: 'Leave & Calendar', href: '/attendance/leave' },
-            { label: 'Bradford & Missing Min', href: '/attendance/bradford' },
+            { label: 'Bradford — Sick Leave',  href: '/attendance/bradford/sick' },
+            { label: 'Bradford — Adherence',   href: '/attendance/bradford/adherence' },
         ],
     },
     {
